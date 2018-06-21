@@ -18,6 +18,34 @@ import org.springframework.security.web.header.writers.StaticHeadersWriter;
 @ComponentScan
 public class CollegeIntegrationApplication extends WebSecurityConfigurerAdapter implements CommandLineRunner {
 
+    private final String userLogin;
+
+    private final String userPassword;
+
+    @Autowired
+    public CollegeIntegrationApplication(@Value("${user.login}") String userLogin, @Value("${user.password}") String userPassword) {
+        this.userLogin = userLogin;
+        this.userPassword = userPassword;
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser(User.withDefaultPasswordEncoder().username(this.userLogin).password(this.userPassword).roles("ADMIN"));
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
+
+        http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"));
+
+        http.authorizeRequests().antMatchers("/home").hasRole("ADMIN");
+
+        http.httpBasic();
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(CollegeIntegrationApplication.class, args);
     }
