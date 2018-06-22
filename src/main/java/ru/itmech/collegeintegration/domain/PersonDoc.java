@@ -5,23 +5,29 @@
  */
 package ru.itmech.collegeintegration.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnTransformer;
 
+import org.hibernate.annotations.ColumnTransformer;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Сущность для таблицы person_doc
+ *
+ * @author Трушенков Дмитрий Сергеевич
+ */
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
 @Table(name = "person_doc")
 @XmlRootElement
-public class PersonDoc implements Serializable {
+class PersonDoc implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -102,6 +108,7 @@ public class PersonDoc implements Serializable {
 //    @ManyToOne
 //    private PersonCitizenship citizenship;
 
+    @JsonBackReference("person")
     @JoinColumn(name = "person", referencedColumnName = "id")
     @ManyToOne
     private Person person;
