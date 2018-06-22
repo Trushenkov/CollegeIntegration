@@ -13,6 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
+/**
+ * Класс для запуска приложения. В этом классе также указаны запросы, для которых требуется авторизация и данные о пользователе, имеющем права админимстратора.
+ *
+ * @author Трушенков Дмитрий Сергеевич
+ */
 @EnableWebSecurity
 @SpringBootApplication
 @ComponentScan
@@ -41,7 +46,8 @@ public class CollegeIntegrationApplication extends WebSecurityConfigurerAdapter 
 
         http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"));
 
-        http.authorizeRequests().antMatchers("/home").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/findbyfio/").hasRole("ADMIN");
+        http.authorizeRequests().antMatchers("/findbysnils/").hasRole("ADMIN");
 
         http.httpBasic();
     }
@@ -51,7 +57,7 @@ public class CollegeIntegrationApplication extends WebSecurityConfigurerAdapter 
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
     }
 }
