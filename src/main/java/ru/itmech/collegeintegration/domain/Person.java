@@ -1,6 +1,7 @@
 
 package ru.itmech.collegeintegration.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Сущность для таблицы person
+ *
+ * @author  Трушенков Дмитрий Сергеевич
+ */
 @Entity
 @Getter
 @Setter
@@ -60,18 +66,21 @@ public class Person implements Serializable {
 
 
     //------------------------------------------------------------------------------------------------------------------
+    @JsonManagedReference("person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     @Where(clause = "deleted = false")
     @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private List<PersonAddress> addresses = new ArrayList<>();
 
+    @JsonManagedReference("person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     @Where(clause = "deleted = false")
     @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private List<PersonContactInformation> contactInformations = new ArrayList<>();
 
+    @JsonManagedReference("person")
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     @Where(clause = "deleted = false")
     @Fetch(FetchMode.SUBSELECT)
