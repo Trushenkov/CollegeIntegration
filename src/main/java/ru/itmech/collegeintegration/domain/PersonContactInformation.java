@@ -5,6 +5,7 @@
  */
 package ru.itmech.collegeintegration.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
+ * Сущность для таблицы person_contact_information
  *
- * @author dragon
+ * @author Трушенков Дмитрий Сергеевич
  */
 @Entity
 @Getter
@@ -23,7 +25,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Table(name = "person_contact_information")
 @XmlRootElement
-public class PersonContactInformation implements Serializable {
+class PersonContactInformation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -37,7 +39,7 @@ public class PersonContactInformation implements Serializable {
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-
+    @JsonBackReference("person")
     @JoinColumn(name = "person", referencedColumnName = "id")
     @ManyToOne
     private Person person;
