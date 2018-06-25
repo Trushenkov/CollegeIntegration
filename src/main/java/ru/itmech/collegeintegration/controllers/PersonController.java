@@ -10,6 +10,11 @@ import ru.itmech.collegeintegration.repositories.PersonRepository;
 
 import java.util.List;
 
+/**
+ * Класс для обработки запросов пользователя.
+ *
+ * @author Трушенков Дмитрий Сергеевич
+ */
 @RestController
 public class PersonController {
 
