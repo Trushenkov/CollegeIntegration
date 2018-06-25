@@ -6,6 +6,11 @@ import ru.itmech.collegeintegration.domain.Person;
 
 import java.util.List;
 
+/**
+ * Интерфейс, в котором размещены методы для поиска в базе данных по ФИО и по номеру СНИЛСА
+ *
+ * @author Трушенков Дмитрий Сергеевич
+ */
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     /**
